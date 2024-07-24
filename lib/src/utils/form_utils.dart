@@ -88,18 +88,20 @@ class FormUtils {
         if (min != null && !numeric)
           FormBuilderValidators.minLength(
             min,
-            checkNullOrEmpty: !required,
+            checkNullOrEmpty: required,
             errorText: '$description debe ser mayor a $min caracteres',
           ),
         if (max != null && numeric)
           FormBuilderValidators.max(
             max,
             errorText: '$description debe ser menor a $max',
+            checkNullOrEmpty: required,
           ),
         if (max != null && !numeric)
           FormBuilderValidators.maxLength(
             max,
             errorText: '$description debe ser menor a $max caracteres',
+            checkNullOrEmpty: required,
           ),
         if (equals != null)
           FormBuilderValidators.equal(
@@ -109,6 +111,7 @@ class FormUtils {
         if (numeric)
           FormBuilderValidators.numeric(
             errorText: '$description debe ser numérico',
+            checkNullOrEmpty: required,
           ),
         if (email)
           FormBuilderValidators.email(
