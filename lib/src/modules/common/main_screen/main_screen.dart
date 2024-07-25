@@ -18,6 +18,8 @@ abstract class MainScreen extends StatelessWidget {
     this.headerActions,
   });
 
+  Function()? onEditComplete(BuildContext context);
+
   Function(String)? onSearchEvent(BuildContext context);
 
   List<Widget>? actions(BuildContext context);
@@ -48,6 +50,7 @@ abstract class MainScreen extends StatelessWidget {
                     Header(
                       additional: actions(context),
                       title: title,
+                      onEditComplete: onEditComplete(context),
                       onSearchEvent: onSearchEvent(context),
                       endWidget: endWidget(context),
                       headerActions: headerActions,

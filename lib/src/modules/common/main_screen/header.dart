@@ -9,6 +9,7 @@ class Header extends StatelessWidget {
   final String title;
   final Map<Widget, VoidCallback>? headerActions;
 
+  final VoidCallback? onEditComplete;
   final ValueChanged<String>? onSearchEvent;
   final List<Widget>? additional;
   final Widget? endWidget;
@@ -17,6 +18,7 @@ class Header extends StatelessWidget {
     super.key,
     required this.title,
     required this.headerActions,
+    this.onEditComplete,
     this.onSearchEvent,
     this.additional,
     this.endWidget,
@@ -70,6 +72,7 @@ class Header extends StatelessWidget {
             const EdgeInsets.symmetric(horizontal: Constants.defaultPadding),
         width: 200,
         child: TextField(
+          onEditingComplete: onEditComplete,
           onChanged: onSearchEvent,
           decoration: FormUtils.inputDecoration('Busqueda', Icons.search),
         ),

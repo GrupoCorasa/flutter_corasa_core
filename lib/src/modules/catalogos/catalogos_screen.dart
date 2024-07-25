@@ -1,12 +1,5 @@
-import 'package:corasa_core/src/model/catalogos.dart';
-import 'package:corasa_core/src/modules/catalogos/catalogo_data_source.dart';
-import 'package:corasa_core/src/modules/catalogos/catalogos_cubit.dart';
-import 'package:corasa_core/src/modules/common/main_screen/main_screen.dart';
-import 'package:corasa_core/src/utils/ui_utils.dart';
-import 'package:data_table_2/data_table_2.dart';
+import 'package:corasa_core/corasa_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 
 abstract class CatalogoScreen<T extends CatalogosModel> extends MainScreen {
   const CatalogoScreen({
@@ -14,6 +7,10 @@ abstract class CatalogoScreen<T extends CatalogosModel> extends MainScreen {
     required super.title,
     required super.openSidebarWidth,
   });
+
+  @override
+  Function()? onEditComplete(BuildContext context) =>
+      context.read<CatalogosCubit<T>>().onEditComplete();
 
   @override
   Function(String p1)? onSearchEvent(BuildContext context) =>
@@ -41,25 +38,21 @@ abstract class CatalogoScreen<T extends CatalogosModel> extends MainScreen {
     return BlocBuilder<CatalogosCubit<T>, CatalogosState<T>>(
       builder: (context, state) => state.loading
           ? const Center(child: CircularProgressIndicator())
-          : PaginatedDataTable2(
+          : AsyncPaginatedDataTable2(
               columns: columns(context),
               sortColumnIndex: state.sortColumnIndex,
               sortAscending: state.sortAscending,
+              columnSpacing: Constants.defaultGap,
               renderEmptyRowsInTheEnd: false,
-              rowsPerPage: 20,
-              availableRowsPerPage: const [20, 50, 100],
-              onRowsPerPageChanged: (value) =>
+              showFirstLastButtons: true,
+              rowsPerPage: state.rowsPerPage,
+              availableRowsPerPage: state.availableRowsPerPage,
+              onRowsPerPageChanged:
                   context.read<CatalogosCubit<T>>().onChangeRowsPerPage(),
-              source: CatalogoDataSource(
-                (state.catalogos
-                    .where(context.read<CatalogosCubit<T>>().filtered())
-                    .toList())
-                  ..sort(context.read<CatalogosCubit<T>>().sorted()),
-                (value) => cells(value),
-                (value) => rowColor(context, value),
-                (value) => goCatalogo(context, value),
-              ),
+              source: state.dataSource ?? createDataSource(context),
+              minWidth: state.tableMinWidth,
               hidePaginator: false,
+              pageSyncApproach: PageSyncApproach.goToFirst,
             ),
     );
   }
@@ -67,13 +60,13 @@ abstract class CatalogoScreen<T extends CatalogosModel> extends MainScreen {
   @override
   Widget? floatingActionButton(BuildContext context) => null;
 
+  CatalogosAsyncDataSource<T> createDataSource(BuildContext context);
+
   String appPath(T? value);
 
   Future<void> goCatalogo(BuildContext context, T? value) async {
     CatalogosCubit<T> cubit = context.read<CatalogosCubit<T>>();
     await GoRouter.of(context).push(appPath(value));
-    cubit
-      ..clean()
-      ..fetch();
+    cubit.clean();
   }
 }

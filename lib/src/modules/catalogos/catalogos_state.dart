@@ -2,40 +2,45 @@ part of 'catalogos_cubit.dart';
 
 class CatalogosState<T extends CatalogosModel> extends Equatable {
   final bool loading;
-  final List<T> catalogos;
-  final CatalogoDataSource<T>? dataSource;
+  final double tableMinWidth;
+
   final String? search;
+  final CatalogosAsyncDataSource<T>? dataSource;
   final int? sortColumnIndex;
   final bool sortAscending;
+  final List<int> availableRowsPerPage;
   final int rowsPerPage;
 
   const CatalogosState({
     this.loading = false,
-    this.catalogos = const [],
-    this.dataSource,
+    this.tableMinWidth = Constants.twoColumnWidth,
     this.search,
-    this.sortColumnIndex,
+    this.dataSource,
+    this.sortColumnIndex = 0,
     this.sortAscending = true,
+    this.availableRowsPerPage = const [20, 50, 100],
     this.rowsPerPage = 20,
   });
 
   CatalogosState<T> copyWith({
     bool? loading,
-    List<T>? catalogos,
-    CatalogoDataSource<T>? dataSource,
+    double? tableMinWidth,
+    CatalogosAsyncDataSource<T>? dataSource,
     bool clean = false,
     String? search,
     int? sortColumnIndex,
     bool? sortAscending,
+    List<int>? availableRowsPerPage,
     int? rowsPerPage,
   }) {
     return CatalogosState(
       loading: loading ?? this.loading,
-      catalogos: catalogos ?? this.catalogos,
+      tableMinWidth: tableMinWidth ?? this.tableMinWidth,
       dataSource: dataSource ?? this.dataSource,
       search: clean ? null : search ?? this.search,
       sortColumnIndex: clean ? null : sortColumnIndex ?? this.sortColumnIndex,
       sortAscending: clean ? true : sortAscending ?? this.sortAscending,
+      availableRowsPerPage: availableRowsPerPage ?? this.availableRowsPerPage,
       rowsPerPage: rowsPerPage ?? this.rowsPerPage,
     );
   }
@@ -43,10 +48,12 @@ class CatalogosState<T extends CatalogosModel> extends Equatable {
   @override
   List<Object?> get props => [
         loading,
-        catalogos,
+        tableMinWidth,
         dataSource,
         search,
         sortColumnIndex,
         sortAscending,
+        availableRowsPerPage,
+        rowsPerPage,
       ];
 }
