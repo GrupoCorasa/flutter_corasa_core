@@ -1,0 +1,4 @@
+enum PageableDirection {
+  asc,
+  desc;
+}
