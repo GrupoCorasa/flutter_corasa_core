@@ -4,8 +4,11 @@ import 'package:corasa_core/src/modules/common/main_screen/user_pop_menu.dart';
 import 'package:corasa_core/src/utils/form_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 
 class Header extends StatelessWidget {
+  final GlobalKey<FormBuilderState>? formKey;
+
   final String title;
   final Map<Widget, VoidCallback>? headerActions;
 
@@ -16,6 +19,7 @@ class Header extends StatelessWidget {
 
   const Header({
     super.key,
+    this.formKey,
     required this.title,
     required this.headerActions,
     this.onEditComplete,
@@ -41,14 +45,17 @@ class Header extends StatelessWidget {
                     children: [
                       titleText(context),
                       if (additional != null || onSearchEvent != null)
-                        Wrap(
-                          alignment: WrapAlignment.start,
-                          spacing: 8.0,
-                          runSpacing: 8.0,
-                          children: [
-                            if (onSearchEvent != null) searchBar(context),
-                            if (additional != null) ...additional!,
-                          ],
+                        FormBuilder(
+                          key: formKey,
+                          child: Wrap(
+                            alignment: WrapAlignment.start,
+                            spacing: 8.0,
+                            runSpacing: 8.0,
+                            children: [
+                              if (onSearchEvent != null) searchBar(context),
+                              if (additional != null) ...additional!,
+                            ],
+                          ),
                         ),
                     ],
                   ),

@@ -26,7 +26,9 @@ abstract class CatalogoScreen<T extends CatalogosModel> extends MainScreen {
       context.read<CatalogosCubit<T>>().onSearchEvent();
 
   @override
-  List<Widget>? actions(BuildContext context) => null;
+  List<Widget>? actions(
+          BuildContext context, GlobalKey<FormBuilderState>? formKey) =>
+      null;
 
   @override
   Widget? endWidget(BuildContext context) => ElevatedButton.icon(

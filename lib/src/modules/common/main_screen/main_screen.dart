@@ -1,8 +1,10 @@
 import 'package:corasa_core/src/modules/common/main_screen/header.dart';
 import 'package:corasa_core/src/modules/common/main_screen/left_side_menu.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 
 abstract class MainScreen extends StatelessWidget {
+  final GlobalKey<FormBuilderState>? formKey;
   final GlobalKey<ScaffoldState>? scaffoldKey;
   final String title;
   final double openSidebarWidth;
@@ -11,6 +13,7 @@ abstract class MainScreen extends StatelessWidget {
 
   const MainScreen({
     super.key,
+    this.formKey,
     this.scaffoldKey,
     required this.title,
     required this.openSidebarWidth,
@@ -22,7 +25,8 @@ abstract class MainScreen extends StatelessWidget {
 
   Function(String)? onSearchEvent(BuildContext context);
 
-  List<Widget>? actions(BuildContext context);
+  List<Widget>? actions(
+      BuildContext context, GlobalKey<FormBuilderState>? formKey);
 
   Widget? endWidget(BuildContext context);
 
@@ -48,7 +52,8 @@ abstract class MainScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     Header(
-                      additional: actions(context),
+                      formKey: formKey,
+                      additional: actions(context, formKey),
                       title: title,
                       onEditComplete: onEditComplete(context),
                       onSearchEvent: onSearchEvent(context),
