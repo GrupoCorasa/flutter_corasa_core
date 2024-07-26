@@ -1,5 +1,14 @@
-import 'package:corasa_core/corasa_core.dart';
+import 'package:corasa_core/src/config/constants.dart';
+import 'package:corasa_core/src/model/catalogos.dart';
+import 'package:corasa_core/src/modules/catalogos/catalogos_async_data_source.dart';
+import 'package:corasa_core/src/modules/catalogos/catalogos_cubit.dart';
+import 'package:corasa_core/src/modules/common/main_screen/main_screen.dart';
+import 'package:corasa_core/src/utils/ui_utils.dart';
+import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:go_router/go_router.dart';
 
 abstract class CatalogoScreen<T extends CatalogosModel> extends MainScreen {
   const CatalogoScreen({

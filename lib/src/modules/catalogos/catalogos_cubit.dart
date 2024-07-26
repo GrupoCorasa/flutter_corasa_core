@@ -1,5 +1,11 @@
-import 'package:corasa_core/corasa_core.dart';
+import 'package:corasa_core/src/config/constants.dart';
+import 'package:corasa_core/src/enum/pageable_direction.dart';
+import 'package:corasa_core/src/model/catalogos.dart';
+import 'package:corasa_core/src/model/pageable/sort_request.dart';
+import 'package:corasa_core/src/modules/catalogos/catalogos_async_data_source.dart';
+import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'catalogos_state.dart';
 
@@ -27,7 +33,10 @@ abstract class CatalogosCubit<T extends CatalogosModel>
         state.dataSource?.onFilters(state.search ?? '');
       };
 
-  void clean() => emit(state.copyWith(clean: true));
+  void clean() {
+    emit(state.copyWith(clean: true));
+    state.dataSource?.refreshDatasource();
+  }
 
   void onCreateDataSource(CatalogosAsyncDataSource<T> dataSource) =>
       emit(state.copyWith(dataSource: dataSource));

@@ -1,4 +1,4 @@
-import 'package:corasa_core/corasa_core.dart';
+import 'package:corasa_core/src/config/constants.dart';
 import 'package:corasa_core/src/enum/module_position.dart';
 import 'package:corasa_core/src/modules/common/auth/auth_cubit.dart';
 import 'package:corasa_core/src/utils/ui_utils.dart';

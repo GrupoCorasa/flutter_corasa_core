@@ -1,6 +1,8 @@
-import 'dart:ui';
-
-import 'package:corasa_core/corasa_core.dart';
+import 'package:corasa_core/src/model/pageable/page_request.dart';
+import 'package:corasa_core/src/model/pageable/page_response.dart';
+import 'package:corasa_core/src/model/pageable/sort_request.dart';
+import 'package:corasa_core/src/service/pageable_service.dart';
+import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 
 abstract class CatalogosAsyncDataSource<T> extends AsyncDataTableSource {

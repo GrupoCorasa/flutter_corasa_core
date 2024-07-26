@@ -1,6 +1,10 @@
 import 'dart:convert';
 
-import 'package:corasa_core/corasa_core.dart';
+import 'package:corasa_core/src/exception/response_exception.dart';
+import 'package:corasa_core/src/model/catalogos.dart';
+import 'package:corasa_core/src/model/generic_response.dart';
+import 'package:corasa_core/src/service/pageable_service.dart';
+import 'package:http/http.dart';
 
 abstract class CatalogoService<T extends CatalogosModel>
     extends PageableService<T> {
