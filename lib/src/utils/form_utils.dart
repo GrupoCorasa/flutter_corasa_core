@@ -25,12 +25,12 @@ class FormUtils {
       );
 
   static InputDecoration inputDecoration(
-    final String label,
-    final IconData icon,
-  ) =>
+          final String label, final IconData icon,
+          {final Widget? suffixIcon}) =>
       InputDecoration(
         labelText: label,
         prefixIcon: Icon(icon),
+        suffixIcon: suffixIcon,
         filled: true,
         isDense: true,
         contentPadding: EdgeInsets.zero,
