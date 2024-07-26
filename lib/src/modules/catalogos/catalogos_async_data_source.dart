@@ -1,12 +1,14 @@
 import 'package:corasa_core/corasa_core.dart';
 
 abstract class CatalogosAsyncDataSource<T> extends AsyncDataTableSource {
+  final BuildContext context;
   final PageableService<T> service;
   final Function(T) onTap;
   SortRequest sortRequest;
   String? filter;
 
   CatalogosAsyncDataSource({
+    required this.context,
     required this.service,
     required this.onTap,
     required this.sortRequest,
@@ -21,6 +23,8 @@ abstract class CatalogosAsyncDataSource<T> extends AsyncDataTableSource {
     this.sortRequest = sortRequest;
     refreshDatasource();
   }
+
+  WidgetStateProperty<Color?>? rowColor(BuildContext context, Chofer value);
 
   @override
   Future<AsyncRowsResponse> getRows(int startIndex, int count) async {

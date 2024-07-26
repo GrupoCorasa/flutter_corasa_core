@@ -31,8 +31,6 @@ abstract class CatalogoScreen<T extends CatalogosModel> extends MainScreen {
 
   List<DataCell> cells(T value);
 
-  WidgetStateProperty<Color?>? rowColor(BuildContext context, T value);
-
   @override
   Widget body(BuildContext context) {
     return BlocBuilder<CatalogosCubit<T>, CatalogosState<T>>(
