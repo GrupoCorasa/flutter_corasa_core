@@ -1,4 +1,7 @@
+import 'dart:ui';
+
 import 'package:corasa_core/corasa_core.dart';
+import 'package:flutter/material.dart';
 
 abstract class CatalogosAsyncDataSource<T> extends AsyncDataTableSource {
   final BuildContext context;
@@ -24,7 +27,7 @@ abstract class CatalogosAsyncDataSource<T> extends AsyncDataTableSource {
     refreshDatasource();
   }
 
-  WidgetStateProperty<Color?>? rowColor(BuildContext context, Chofer value);
+  WidgetStateProperty<Color?>? rowColor(BuildContext context, T value);
 
   @override
   Future<AsyncRowsResponse> getRows(int startIndex, int count) async {
