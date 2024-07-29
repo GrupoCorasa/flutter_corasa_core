@@ -71,8 +71,8 @@ class FormUtils {
     bool required = false,
     bool numeric = false,
     bool email = false,
-    int? min,
-    int? max,
+    num? min,
+    num? max,
     String? equals,
   }) =>
       FormBuilderValidators.compose([
@@ -84,10 +84,11 @@ class FormUtils {
           FormBuilderValidators.min(
             min,
             errorText: '$description debe ser mayor a $min',
+            checkNullOrEmpty: required,
           ),
         if (min != null && !numeric)
           FormBuilderValidators.minLength(
-            min,
+            min.toInt(),
             checkNullOrEmpty: required,
             errorText: '$description debe ser mayor a $min caracteres',
           ),
@@ -99,7 +100,7 @@ class FormUtils {
           ),
         if (max != null && !numeric)
           FormBuilderValidators.maxLength(
-            max,
+            max.toInt(),
             errorText: '$description debe ser menor a $max caracteres',
             checkNullOrEmpty: required,
           ),
@@ -107,6 +108,7 @@ class FormUtils {
           FormBuilderValidators.equal(
             equals,
             errorText: '$description incorrecta',
+            checkNullOrEmpty: required,
           ),
         if (numeric)
           FormBuilderValidators.numeric(
@@ -116,6 +118,7 @@ class FormUtils {
         if (email)
           FormBuilderValidators.email(
             errorText: '$description debe ser un correo electrónico válido',
+            checkNullOrEmpty: required,
           ),
       ]);
 
