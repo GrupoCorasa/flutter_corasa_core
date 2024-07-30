@@ -36,7 +36,7 @@ class NotificationUtils {
         toastDuration: Constants.errorDuration,
       )..show(context);
     }
-    log("Ocurrió un error: ", error: error, stackTrace: stacktrace);
+    log('Ocurrió un error: ', error: error, stackTrace: stacktrace);
     return ElegantNotification.error(
       title: const Text('Ocurrió un error en el proceso'),
       description:

@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 class NotFoundScreen extends StatelessWidget {
   const NotFoundScreen({super.key});
 
-  static router() => MaterialPage(
+  static MaterialPage router() => MaterialPage(
         key: UniqueKey(),
         name: 'Not Found',
         child: const NotFoundScreen(),
