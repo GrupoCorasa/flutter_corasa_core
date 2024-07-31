@@ -2,9 +2,11 @@ import 'dart:developer';
 
 import 'package:corasa_core/src/config/constants.dart';
 import 'package:corasa_core/src/exception/response_exception.dart';
+import 'package:corasa_core/src/model/generic_response.dart';
 import 'package:elegant_notification/elegant_notification.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:quickalert/quickalert.dart';
 
 class NotificationUtils {
   const NotificationUtils._();
@@ -102,4 +104,34 @@ class NotificationUtils {
                   background: Theme.of(context).colorScheme.surface,
                   toastDuration: Constants.errorDuration,
                 )..show(context));
+
+  static Future<void> confirmDialog(BuildContext context, String title,
+          String text, VoidCallback onConfirmBtnTap,
+          {String confirmBtn = 'Confirmar',
+          String cancelBtn = 'Cancelar',
+          Color confirmColor = Colors.green,
+          VoidCallback? onCancelBtnTap}) async =>
+      QuickAlert.show(
+        context: context,
+        title: title,
+        type: QuickAlertType.confirm,
+        text: text,
+        confirmBtnText: confirmBtn,
+        cancelBtnText: cancelBtn,
+        confirmBtnColor: confirmColor.withOpacity(0.7),
+        onConfirmBtnTap: onConfirmBtnTap,
+        onCancelBtnTap: onCancelBtnTap ?? () => Navigator.pop(context),
+        showConfirmBtn: true,
+        showCancelBtn: true,
+        disableBackBtn: false,
+      );
+
+  static Future<void> onGenericResponse(
+          BuildContext context, GenericResponse response, bool success) async =>
+      QuickAlert.show(
+        context: context,
+        title: response.message,
+        type: success ? QuickAlertType.success : QuickAlertType.error,
+        text: response.details?.join('\n'),
+      );
 }
