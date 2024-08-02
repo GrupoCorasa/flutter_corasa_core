@@ -18,8 +18,9 @@ class UiUtils {
       );
 
   static FloatingActionButton addNew(final VoidCallback onPress,
-          {final IconData icon = Icons.add}) =>
+          {final IconData icon = Icons.add, Object? heroTag}) =>
       FloatingActionButton(
+        heroTag: heroTag,
         onPressed: onPress,
         child: Icon(
           icon,
