@@ -1,4 +1,4 @@
-import 'package:corasa_core/src/model/side_menu_model.dart';
+import 'package:corasa_core/src/model/side_menu/side_menu_model.dart';
 import 'package:go_router/go_router.dart';
 
 class Permission {

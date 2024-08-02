@@ -1,16 +1,17 @@
-import 'package:corasa_core/src/enum/module_position.dart';
+import 'package:corasa_core/corasa_core.dart';
 import 'package:flutter/material.dart';
 
-class SideMenuPermission {
-  final String module;
+class SideMenuParent extends Equatable {
   final String displayName;
   final IconData icon;
   final ModulePosition modulePosition;
 
-  SideMenuPermission({
-    required this.module,
+  const SideMenuParent({
     required this.displayName,
     required this.icon,
     required this.modulePosition,
   });
+
+  @override
+  List<Object?> get props => [displayName, icon, modulePosition];
 }

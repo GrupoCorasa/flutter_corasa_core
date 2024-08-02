@@ -1,4 +1,4 @@
-import 'package:corasa_core/src/model/permission.dart';
+import 'package:corasa_core/src/model/side_menu/permission.dart';
 
 abstract mixin class CoreUser {
   String? get getName;

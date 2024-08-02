@@ -56,12 +56,14 @@ class LeftSideMenu extends StatelessWidget {
               icon: const Icon(Icons.home),
             ),
             if (state.user!.sideMenuPermission().any((p) =>
-                p.sideMenuPermission!.modulePosition == ModulePosition.top))
+                p.sideMenuPermission!.modulePosition == ModulePosition.top &&
+                p.sideMenuPermission!.parent == null))
               ...state.user!
                   .sideMenuPermission()
                   .where((p) =>
                       p.sideMenuPermission!.modulePosition ==
-                      ModulePosition.top)
+                          ModulePosition.top &&
+                      p.sideMenuPermission!.parent == null)
                   .map((p) => SideMenuItem(
                         title: p.sideMenuPermission!.displayName,
                         onTap: (index, controller) =>
@@ -69,7 +71,37 @@ class LeftSideMenu extends StatelessWidget {
                         icon: Icon(p.sideMenuPermission!.icon),
                       )),
             if (state.user!.sideMenuPermission().any((p) =>
-                p.sideMenuPermission!.modulePosition == ModulePosition.catalog))
+                p.sideMenuPermission!.modulePosition == ModulePosition.top &&
+                p.sideMenuPermission!.parent != null))
+              ...state.user!
+                  .sideMenuPermission()
+                  .where((p) =>
+                      p.sideMenuPermission!.modulePosition ==
+                          ModulePosition.top &&
+                      p.sideMenuPermission!.parent != null)
+                  .toSet()
+                  .map((p) => SideMenuExpansionItem(
+                        title: p.sideMenuPermission!.parent!.displayName,
+                        icon: Icon(p.sideMenuPermission!.parent!.icon),
+                        children: state.user!
+                            .sideMenuPermission()
+                            .where((c) =>
+                                c.sideMenuPermission!.modulePosition ==
+                                    ModulePosition.top &&
+                                p.sideMenuPermission!.parent ==
+                                    c.sideMenuPermission!.parent)
+                            .map((p) => SideMenuItem(
+                                  title: p.sideMenuPermission!.displayName,
+                                  onTap: (index, controller) => _onTap(
+                                      context, state, index, p.routePath),
+                                  icon: Icon(p.sideMenuPermission!.icon),
+                                ))
+                            .toList(),
+                      )),
+            if (state.user!.sideMenuPermission().any((p) =>
+                p.sideMenuPermission!.modulePosition ==
+                    ModulePosition.catalog &&
+                p.sideMenuPermission!.parent == null))
               SideMenuExpansionItem(
                 title: 'Catálogos',
                 icon: const Icon(Icons.list_rounded),
@@ -77,7 +109,8 @@ class LeftSideMenu extends StatelessWidget {
                     .sideMenuPermission()
                     .where((p) =>
                         p.sideMenuPermission!.modulePosition ==
-                        ModulePosition.catalog)
+                            ModulePosition.catalog &&
+                        p.sideMenuPermission!.parent == null)
                     .map((p) => SideMenuItem(
                           title: p.sideMenuPermission!.displayName,
                           onTap: (index, controller) =>
@@ -87,12 +120,43 @@ class LeftSideMenu extends StatelessWidget {
                     .toList(),
               ),
             if (state.user!.sideMenuPermission().any((p) =>
-                p.sideMenuPermission!.modulePosition == ModulePosition.mid))
+                p.sideMenuPermission!.modulePosition ==
+                    ModulePosition.catalog &&
+                p.sideMenuPermission!.parent != null))
               ...state.user!
                   .sideMenuPermission()
                   .where((p) =>
                       p.sideMenuPermission!.modulePosition ==
-                      ModulePosition.mid)
+                          ModulePosition.catalog &&
+                      p.sideMenuPermission!.parent != null)
+                  .toSet()
+                  .map((p) => SideMenuExpansionItem(
+                        title: p.sideMenuPermission!.parent!.displayName,
+                        icon: Icon(p.sideMenuPermission!.parent!.icon),
+                        children: state.user!
+                            .sideMenuPermission()
+                            .where((c) =>
+                                c.sideMenuPermission!.modulePosition ==
+                                    ModulePosition.catalog &&
+                                p.sideMenuPermission!.parent ==
+                                    c.sideMenuPermission!.parent)
+                            .map((p) => SideMenuItem(
+                                  title: p.sideMenuPermission!.displayName,
+                                  onTap: (index, controller) => _onTap(
+                                      context, state, index, p.routePath),
+                                  icon: Icon(p.sideMenuPermission!.icon),
+                                ))
+                            .toList(),
+                      )),
+            if (state.user!.sideMenuPermission().any((p) =>
+                p.sideMenuPermission!.modulePosition == ModulePosition.mid &&
+                p.sideMenuPermission!.parent == null))
+              ...state.user!
+                  .sideMenuPermission()
+                  .where((p) =>
+                      p.sideMenuPermission!.modulePosition ==
+                          ModulePosition.mid &&
+                      p.sideMenuPermission!.parent == null)
                   .map((p) => SideMenuItem(
                         title: p.sideMenuPermission!.displayName,
                         onTap: (index, controller) =>
@@ -100,8 +164,37 @@ class LeftSideMenu extends StatelessWidget {
                         icon: Icon(p.sideMenuPermission!.icon),
                       )),
             if (state.user!.sideMenuPermission().any((p) =>
+                p.sideMenuPermission!.modulePosition == ModulePosition.mid &&
+                p.sideMenuPermission!.parent != null))
+              ...state.user!
+                  .sideMenuPermission()
+                  .where((p) =>
+                      p.sideMenuPermission!.modulePosition ==
+                          ModulePosition.mid &&
+                      p.sideMenuPermission!.parent != null)
+                  .toSet()
+                  .map((p) => SideMenuExpansionItem(
+                        title: p.sideMenuPermission!.parent!.displayName,
+                        icon: Icon(p.sideMenuPermission!.parent!.icon),
+                        children: state.user!
+                            .sideMenuPermission()
+                            .where((c) =>
+                                c.sideMenuPermission!.modulePosition ==
+                                    ModulePosition.mid &&
+                                p.sideMenuPermission!.parent ==
+                                    c.sideMenuPermission!.parent)
+                            .map((p) => SideMenuItem(
+                                  title: p.sideMenuPermission!.displayName,
+                                  onTap: (index, controller) => _onTap(
+                                      context, state, index, p.routePath),
+                                  icon: Icon(p.sideMenuPermission!.icon),
+                                ))
+                            .toList(),
+                      )),
+            if (state.user!.sideMenuPermission().any((p) =>
                 p.sideMenuPermission!.modulePosition ==
-                ModulePosition.settings))
+                    ModulePosition.settings &&
+                p.sideMenuPermission!.parent == null))
               SideMenuExpansionItem(
                 title: 'Configuración',
                 icon: const Icon(Icons.settings),
@@ -109,7 +202,8 @@ class LeftSideMenu extends StatelessWidget {
                     .sideMenuPermission()
                     .where((p) =>
                         p.sideMenuPermission!.modulePosition ==
-                        ModulePosition.settings)
+                            ModulePosition.settings &&
+                        p.sideMenuPermission!.parent == null)
                     .map((p) => SideMenuItem(
                           title: p.sideMenuPermission!.displayName,
                           onTap: (index, controller) =>
@@ -119,7 +213,37 @@ class LeftSideMenu extends StatelessWidget {
                     .toList(),
               ),
             if (state.user!.sideMenuPermission().any((p) =>
-                p.sideMenuPermission!.modulePosition == ModulePosition.bottom))
+                p.sideMenuPermission!.modulePosition ==
+                    ModulePosition.settings &&
+                p.sideMenuPermission!.parent != null))
+              ...state.user!
+                  .sideMenuPermission()
+                  .where((p) =>
+                      p.sideMenuPermission!.modulePosition ==
+                          ModulePosition.settings &&
+                      p.sideMenuPermission!.parent != null)
+                  .toSet()
+                  .map((p) => SideMenuExpansionItem(
+                        title: p.sideMenuPermission!.parent!.displayName,
+                        icon: Icon(p.sideMenuPermission!.parent!.icon),
+                        children: state.user!
+                            .sideMenuPermission()
+                            .where((c) =>
+                                c.sideMenuPermission!.modulePosition ==
+                                    ModulePosition.settings &&
+                                p.sideMenuPermission!.parent ==
+                                    c.sideMenuPermission!.parent)
+                            .map((p) => SideMenuItem(
+                                  title: p.sideMenuPermission!.displayName,
+                                  onTap: (index, controller) => _onTap(
+                                      context, state, index, p.routePath),
+                                  icon: Icon(p.sideMenuPermission!.icon),
+                                ))
+                            .toList(),
+                      )),
+            if (state.user!.sideMenuPermission().any((p) =>
+                p.sideMenuPermission!.modulePosition == ModulePosition.bottom &&
+                p.sideMenuPermission!.parent == null))
               ...state.user!
                   .sideMenuPermission()
                   .where((p) =>
@@ -132,7 +256,37 @@ class LeftSideMenu extends StatelessWidget {
                         icon: Icon(p.sideMenuPermission!.icon),
                       )),
             if (state.user!.sideMenuPermission().any((p) =>
-                p.sideMenuPermission!.modulePosition == ModulePosition.reports))
+                p.sideMenuPermission!.modulePosition == ModulePosition.bottom &&
+                p.sideMenuPermission!.parent != null))
+              ...state.user!
+                  .sideMenuPermission()
+                  .where((p) =>
+                      p.sideMenuPermission!.modulePosition ==
+                          ModulePosition.bottom &&
+                      p.sideMenuPermission!.parent != null)
+                  .toSet()
+                  .map((p) => SideMenuExpansionItem(
+                        title: p.sideMenuPermission!.parent!.displayName,
+                        icon: Icon(p.sideMenuPermission!.parent!.icon),
+                        children: state.user!
+                            .sideMenuPermission()
+                            .where((c) =>
+                                c.sideMenuPermission!.modulePosition ==
+                                    ModulePosition.bottom &&
+                                p.sideMenuPermission!.parent ==
+                                    c.sideMenuPermission!.parent)
+                            .map((p) => SideMenuItem(
+                                  title: p.sideMenuPermission!.displayName,
+                                  onTap: (index, controller) => _onTap(
+                                      context, state, index, p.routePath),
+                                  icon: Icon(p.sideMenuPermission!.icon),
+                                ))
+                            .toList(),
+                      )),
+            if (state.user!.sideMenuPermission().any((p) =>
+                p.sideMenuPermission!.modulePosition ==
+                    ModulePosition.reports &&
+                p.sideMenuPermission!.parent == null))
               SideMenuExpansionItem(
                 title: 'Reportes',
                 icon: const Icon(Icons.dashboard_customize),
@@ -149,6 +303,35 @@ class LeftSideMenu extends StatelessWidget {
                         ))
                     .toList(),
               ),
+            if (state.user!.sideMenuPermission().any((p) =>
+                p.sideMenuPermission!.modulePosition ==
+                    ModulePosition.reports &&
+                p.sideMenuPermission!.parent != null))
+              ...state.user!
+                  .sideMenuPermission()
+                  .where((p) =>
+                      p.sideMenuPermission!.modulePosition ==
+                          ModulePosition.reports &&
+                      p.sideMenuPermission!.parent != null)
+                  .toSet()
+                  .map((p) => SideMenuExpansionItem(
+                        title: p.sideMenuPermission!.parent!.displayName,
+                        icon: Icon(p.sideMenuPermission!.parent!.icon),
+                        children: state.user!
+                            .sideMenuPermission()
+                            .where((c) =>
+                                c.sideMenuPermission!.modulePosition ==
+                                    ModulePosition.reports &&
+                                p.sideMenuPermission!.parent ==
+                                    c.sideMenuPermission!.parent)
+                            .map((p) => SideMenuItem(
+                                  title: p.sideMenuPermission!.displayName,
+                                  onTap: (index, controller) => _onTap(
+                                      context, state, index, p.routePath),
+                                  icon: Icon(p.sideMenuPermission!.icon),
+                                ))
+                            .toList(),
+                      )),
           ],
         ),
       );
