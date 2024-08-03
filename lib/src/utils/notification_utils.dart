@@ -19,32 +19,34 @@ class NotificationUtils {
     ).show(context);
   }
 
-  static ElegantNotification onStacktrace(
+  static void onStacktrace(
     final context,
     final Object? error,
     final StackTrace stacktrace,
   ) {
     if (error is ResponseException) {
-      return ElegantNotification.error(
-        title: Text(error.message ?? 'Ocurrió un error en el proceso'),
-        description: Text(error.details?.join('\n') ??
-            'Por favor, contacte a soporte técnico'),
-        toastDuration: Constants.errorDuration,
-      )..show(context);
+      QuickAlert.show(
+        context: context,
+        title: error.message ?? 'Ocurrió un error en el proceso',
+        type: QuickAlertType.error,
+        text: error.details?.join('\n') ??
+            'Por favor, contacte a soporte técnico',
+      );
     } else if (error is ClientException) {
-      return ElegantNotification.error(
-        title: const Text('Error al realizar la conexión al servidor'),
-        description: const Text('Verifique su conexión a internet'),
-        toastDuration: Constants.errorDuration,
-      )..show(context);
+      QuickAlert.show(
+        context: context,
+        title: 'Error al realizar la conexión al servidor',
+        type: QuickAlertType.error,
+        text: 'Verifique su conexión a internet',
+      );
     }
     log('Ocurrió un error: ', error: error, stackTrace: stacktrace);
-    return ElegantNotification.error(
-      title: const Text('Ocurrió un error en el proceso'),
-      description:
-          Text('Por favor, contacte a soporte técnico\n${error.toString()}'),
-      toastDuration: Constants.errorDuration,
-    )..show(context);
+    QuickAlert.show(
+      context: context,
+      title: 'Ocurrió un error en el proceso',
+      type: QuickAlertType.error,
+      text: 'Por favor, contacte a soporte técnico\n${error.toString()}',
+    );
   }
 
   static Future<T> asyncNotification<T>(BuildContext context, Future task,
