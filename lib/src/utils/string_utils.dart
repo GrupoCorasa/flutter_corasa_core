@@ -7,7 +7,7 @@ class StringUtils {
   static final NumberFormat _numberFormat =
       NumberFormat('###,###,###.##', 'es_MX');
   static final NumberFormat _currencyFormat =
-      NumberFormat('\$ ###,###,###.00', 'es_MX');
+      NumberFormat('\$ ###,###,##0.00', 'es_MX');
 
   static String getIniciales(String? name) {
     List<String> names = name?.split(' ') ?? ['¿', '?'];
