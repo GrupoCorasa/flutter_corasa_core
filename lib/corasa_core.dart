@@ -29,6 +29,7 @@ export 'src/modules/common/not_found_screen.dart';
 export 'src/service/api_service.dart';
 export 'src/service/catalogo_service.dart';
 export 'src/service/pageable_service.dart';
+export 'src/utils/formatters/uppercase_formatter.dart';
 export 'src/utils/form_utils.dart';
 export 'src/utils/notification_utils.dart';
 export 'src/utils/string_utils.dart';
