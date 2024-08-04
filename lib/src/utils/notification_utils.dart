@@ -32,6 +32,7 @@ class NotificationUtils {
         text: error.details?.join('\n') ??
             'Por favor, contacte a soporte técnico',
       );
+      return;
     } else if (error is ClientException) {
       QuickAlert.show(
         context: context,
@@ -39,6 +40,7 @@ class NotificationUtils {
         type: QuickAlertType.error,
         text: 'Verifique su conexión a internet',
       );
+      return;
     }
     log('Ocurrió un error: ', error: error, stackTrace: stacktrace);
     QuickAlert.show(
