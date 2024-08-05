@@ -16,8 +16,8 @@ class LoginScreen extends StatelessWidget {
   final Random random = Random();
   final List<String>? backgroundAssets;
   final GlobalKey<FormBuilderState> formKey;
-  final Future<String> Function(LoginRequest request) onLogin;
-  final Future<void> Function(String token) onLogged;
+  final Future<void> Function(LoginRequest request) onLogin;
+  final Future<void> Function() onLogged;
   final Widget? additional;
 
   LoginScreen({
@@ -27,7 +27,9 @@ class LoginScreen extends StatelessWidget {
     required this.onLogin,
     required this.onLogged,
     this.additional,
-  });
+  }) {
+    onLogged();
+  }
 
   @override
   Widget build(final BuildContext context) => Scaffold(
@@ -114,7 +116,7 @@ class LoginScreen extends StatelessWidget {
                           onLogin(context.read<LoginCubit>().onSubmit()),
                           'Iniciando Sesión',
                           'Proceso terminado',
-                        ).then((token) => onLogged(token)).onError(
+                        ).then((token) => onLogged()).onError(
                             (error, stackTrace) =>
                                 NotificationUtils.onStacktrace(
                                   context,
