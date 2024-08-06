@@ -130,6 +130,34 @@ class NotificationUtils {
         disableBackBtn: false,
       );
 
+  static Future<void> inputDialog(BuildContext context, String title,
+      String text, void Function(String?) onConfirmBtnTap,
+      {String confirmBtn = 'Confirmar',
+      String cancelBtn = 'Cancelar',
+      Color confirmColor = Colors.green,
+      VoidCallback? onCancelBtnTap}) async {
+    String? input;
+    await QuickAlert.show(
+      context: context,
+      title: title,
+      type: QuickAlertType.custom,
+      text: text,
+      barrierDismissible: true,
+      confirmBtnText: 'Enviar',
+      widget: TextFormField(
+        decoration: const InputDecoration(
+          alignLabelWithHint: true,
+          hintText: 'Correo electrónico',
+          prefixIcon: Icon(Icons.email),
+        ),
+        textInputAction: TextInputAction.next,
+        keyboardType: TextInputType.emailAddress,
+        onChanged: (value) => input = value,
+      ),
+      onConfirmBtnTap: () => onConfirmBtnTap(input),
+    );
+  }
+
   static Future<void> onGenericResponse(
           BuildContext context, GenericResponse response, bool success) async =>
       QuickAlert.show(
