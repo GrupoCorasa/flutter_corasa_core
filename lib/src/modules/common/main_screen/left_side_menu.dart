@@ -12,10 +12,23 @@ class LeftSideMenu extends StatelessWidget {
   final double openWidth;
   final double compactWidth;
 
+  final Color? hoverColor;
+  final Color? selectedColor;
+  final Color? selectedIconColor;
+  final Color? unselectedIconColor;
+  final Color? backgroundColor;
+  final Color? toggleColor;
+
   const LeftSideMenu({
     super.key,
     required this.openWidth,
     this.compactWidth = 60,
+    this.hoverColor,
+    this.selectedColor,
+    this.selectedIconColor,
+    this.unselectedIconColor,
+    this.backgroundColor,
+    this.toggleColor,
   });
 
   SideMenuStyle _sideBarStyle(BuildContext context) => SideMenuStyle(
@@ -25,18 +38,15 @@ class LeftSideMenu extends StatelessWidget {
         decoration: UiUtils.boxDecoration(context),
         openSideMenuWidth: openWidth,
         compactSideMenuWidth: compactWidth,
-        hoverColor: Colors.blue[100],
-        selectedColor: Colors.lightBlue,
-        selectedIconColor: Colors.white,
-        unselectedIconColor: Colors.black54,
-        backgroundColor: Theme.of(context).splashColor,
-        selectedTitleTextStyle: const TextStyle(color: Colors.white),
-        unselectedTitleTextStyle: const TextStyle(color: Colors.black54),
+        hoverColor: hoverColor,
+        selectedColor: selectedColor,
+        selectedIconColor: selectedIconColor,
+        unselectedIconColor: unselectedIconColor,
+        backgroundColor: backgroundColor,
         iconSize: 20,
-        itemBorderRadius: const BorderRadius.all(Radius.circular(40.0)),
         showTooltip: true,
         showHamburger: false,
-        toggleColor: Colors.black54,
+        toggleColor: toggleColor,
         iconSizeExpandable: 25.0,
       );
 
