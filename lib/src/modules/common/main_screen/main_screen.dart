@@ -11,6 +11,13 @@ abstract class MainScreen extends StatelessWidget {
   final double compactSidebarWidth;
   final Map<Widget, VoidCallback>? headerActions;
 
+  final Color? hoverColor;
+  final Color? selectedColor;
+  final Color? selectedIconColor;
+  final Color? unselectedIconColor;
+  final Color? backgroundColor;
+  final Color? toggleColor;
+
   const MainScreen({
     super.key,
     this.formKey,
@@ -19,6 +26,12 @@ abstract class MainScreen extends StatelessWidget {
     required this.openSidebarWidth,
     this.compactSidebarWidth = 60,
     this.headerActions,
+    this.hoverColor,
+    this.selectedColor,
+    this.selectedIconColor,
+    this.unselectedIconColor,
+    this.backgroundColor,
+    this.toggleColor,
   });
 
   Function()? onEditComplete(BuildContext context);
@@ -46,6 +59,12 @@ abstract class MainScreen extends StatelessWidget {
                 child: LeftSideMenu(
                   openWidth: openSidebarWidth,
                   compactWidth: compactSidebarWidth,
+                  hoverColor: hoverColor,
+                  selectedColor: selectedColor,
+                  selectedIconColor: selectedIconColor,
+                  unselectedIconColor: unselectedIconColor,
+                  backgroundColor: backgroundColor,
+                  toggleColor: toggleColor,
                 ),
               ),
               Expanded(
