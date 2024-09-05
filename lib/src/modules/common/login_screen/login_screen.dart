@@ -97,6 +97,7 @@ class LoginScreen extends StatelessWidget {
                         textInputAction: TextInputAction.next,
                         obscureText: true,
                       ),
+                      FormUtils.separator(),
                       FormBuilderSwitch(
                         name: 'remember',
                         title: const Text(
@@ -106,6 +107,7 @@ class LoginScreen extends StatelessWidget {
                         onChanged:
                             context.read<LoginCubit>().onChangeRemember(),
                       ),
+                      FormUtils.separator(),
                       FormUtils.submitButton('Iniciar Sesión', () {
                         if (!formKey.currentState!.validate()) {
                           NotificationUtils.invalidForm(context);
