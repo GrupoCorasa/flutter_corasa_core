@@ -118,13 +118,17 @@ class LoginScreen extends StatelessWidget {
                           onLogin(context.read<LoginCubit>().onSubmit()),
                           'Iniciando Sesión',
                           'Proceso terminado',
-                        ).then((token) => onLogged()).onError(
-                            (error, stackTrace) =>
-                                NotificationUtils.onStacktrace(
-                                  context,
-                                  error,
-                                  stackTrace,
-                                ));
+                        )
+                            .then((token) => onLogged())
+                            .onError((error, stackTrace) {
+                          if (context.mounted) {
+                            NotificationUtils.onStacktrace(
+                              context,
+                              error,
+                              stackTrace,
+                            );
+                          }
+                        });
                       }),
                       if (additional != null) ...[
                         FormUtils.separator(),
