@@ -39,6 +39,12 @@ class ApiService {
     }
   }
 
+  Future<void> cleanToken() async {
+    _storage ??= await SharedPreferences.getInstance();
+    _storage?.remove(Constants.storageJwtKey);
+    _token = null;
+  }
+
   Future<Response> doGetRequest(String endpoint,
       {final Map<String, dynamic>? query}) async {
     if (!endpoint.startsWith('/')) endpoint = '/$endpoint';
