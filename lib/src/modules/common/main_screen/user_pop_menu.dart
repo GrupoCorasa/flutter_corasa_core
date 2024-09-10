@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
 class UserPopMenu extends StatelessWidget {
-  final Map<Widget, VoidCallback>? actions;
+  final Map<Widget, void Function(BuildContext)>? actions;
 
   const UserPopMenu({
     super.key,
@@ -33,7 +33,7 @@ class UserPopMenu extends StatelessWidget {
           itemBuilder: (context) => [
             if (actions != null)
               ...actions!.entries.map((entry) => PopupMenuItem(
-                    onTap: entry.value,
+                    onTap: () => entry.value(context),
                     child: entry.key,
                   )),
             PopupMenuItem(

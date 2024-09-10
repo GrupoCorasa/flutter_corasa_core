@@ -1,15 +1,12 @@
-import 'package:corasa_core/src/modules/common/main_screen/header.dart';
-import 'package:corasa_core/src/modules/common/main_screen/left_side_menu.dart';
+import 'package:corasa_core/corasa_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_form_builder/flutter_form_builder.dart';
 
 abstract class MainScreen extends StatelessWidget {
   final GlobalKey<FormBuilderState>? formKey;
-  final GlobalKey<ScaffoldState>? scaffoldKey;
   final String title;
   final double openSidebarWidth;
   final double compactSidebarWidth;
-  final Map<Widget, VoidCallback>? headerActions;
+  final Map<Widget, void Function(BuildContext)>? headerActions;
 
   final Color? hoverColor;
   final Color? selectedColor;
@@ -21,7 +18,6 @@ abstract class MainScreen extends StatelessWidget {
   const MainScreen({
     super.key,
     this.formKey,
-    this.scaffoldKey,
     required this.title,
     required this.openSidebarWidth,
     this.compactSidebarWidth = 60,
@@ -49,7 +45,6 @@ abstract class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        key: scaffoldKey,
         body: SafeArea(
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,

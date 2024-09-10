@@ -10,7 +10,7 @@ class Header extends StatelessWidget {
   final GlobalKey<FormBuilderState>? formKey;
 
   final String title;
-  final Map<Widget, VoidCallback>? headerActions;
+  final Map<Widget, void Function(BuildContext)>? headerActions;
 
   final VoidCallback? onEditComplete;
   final ValueChanged<String>? onSearchEvent;
