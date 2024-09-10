@@ -19,6 +19,9 @@ class AuthCubit extends Cubit<AuthState> {
   VoidCallback onLogOutRequest(BuildContext context) => () {
         SharedPreferences.getInstance()
             .then((instance) => instance.remove(Constants.storageJwtKey));
+        if (state.user != null) {
+          state.user!.onLogout(context);
+        }
         GoRouter.of(context).replace('/');
         emit(state.copyWith(clearUser: true));
       };

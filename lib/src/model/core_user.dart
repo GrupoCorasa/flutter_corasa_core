@@ -1,4 +1,5 @@
 import 'package:corasa_core/src/model/side_menu/permission.dart';
+import 'package:flutter/material.dart';
 
 abstract mixin class CoreUser {
   String? get getName;
@@ -7,4 +8,6 @@ abstract mixin class CoreUser {
 
   List<Permission> sideMenuPermission() =>
       getPermissions.where((p) => p.sideMenuPermission != null).toList();
+
+  Future<void> onLogout(BuildContext context);
 }
