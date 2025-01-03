@@ -19,4 +19,15 @@ class StringUtils {
   static String parseCurrency(double value) => _currencyFormat.format(value);
 
   static String parseNumber(num value) => _numberFormat.format(value);
+
+  static String groupAndFormat(List<String> items, int groupSize) {
+    final groups = <List<String>>[];
+    for (var i = 0; i < items.length; i += groupSize) {
+      groups.add(items.sublist(
+        i,
+        i + groupSize > items.length ? items.length : i + groupSize,
+      ));
+    }
+    return groups.map((group) => group.join(', ')).join('\n');
+  }
 }
