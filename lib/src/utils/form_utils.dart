@@ -74,6 +74,8 @@ class FormUtils {
     num? min,
     num? max,
     String? equals,
+    bool? aditionalValidation,
+    String? aditionalError,
   }) =>
       FormBuilderValidators.compose([
         if (required)
@@ -118,6 +120,12 @@ class FormUtils {
         if (email)
           FormBuilderValidators.email(
             errorText: '$description debe ser un correo electrónico válido',
+            checkNullOrEmpty: required,
+          ),
+        if (aditionalValidation != null && aditionalError != null)
+          FormBuilderValidators.equal(
+            aditionalValidation == true,
+            errorText: '$description $aditionalError',
             checkNullOrEmpty: required,
           ),
       ]);
