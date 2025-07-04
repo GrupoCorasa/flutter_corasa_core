@@ -4,6 +4,7 @@ import 'package:corasa_core/src/config/constants.dart';
 import 'package:corasa_core/src/exception/response_exception.dart';
 import 'package:corasa_core/src/model/generic_response.dart';
 import 'package:elegant_notification/elegant_notification.dart';
+import 'package:elegant_notification/resources/arrays.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:quickalert/quickalert.dart';
@@ -11,11 +12,17 @@ import 'package:quickalert/quickalert.dart';
 class NotificationUtils {
   const NotificationUtils._();
 
-  static void invalidForm(BuildContext context) {
+  static void invalidForm(
+    BuildContext context, {
+    final Alignment alignment = Alignment.bottomCenter,
+    final AnimationType animation = AnimationType.fromBottom,
+  }) {
     ElegantNotification.error(
       title: const Text('Errores en el formulario'),
       description: const Text('Verifique los campos marcados en rojo'),
       toastDuration: Constants.errorDuration,
+      position: alignment,
+      animation: animation,
     ).show(context);
   }
 
@@ -51,8 +58,14 @@ class NotificationUtils {
     );
   }
 
-  static Future<T> asyncNotification<T>(BuildContext context, Future task,
-      String description, String finishMessage) async {
+  static Future<T> asyncNotification<T>(
+    BuildContext context,
+    Future task,
+    String description,
+    String finishMessage, {
+    final Alignment alignment = Alignment.bottomCenter,
+    final AnimationType animation = AnimationType.fromBottom,
+  }) async {
     ElegantNotification notification = ElegantNotification(
       title: const Text('Procesando'),
       description: Text(
@@ -64,6 +77,8 @@ class NotificationUtils {
       displayCloseButton: false,
       autoDismiss: false,
       isDismissable: false,
+      position: alignment,
+      animation: animation,
     )..show(context);
     try {
       return await task;
@@ -77,6 +92,8 @@ class NotificationUtils {
             overflow: TextOverflow.ellipsis,
           ),
           toastDuration: Constants.errorDuration,
+          position: alignment,
+          animation: animation,
         ).show(context);
       }
     }
@@ -86,14 +103,18 @@ class NotificationUtils {
     final BuildContext context,
     final bool? success,
     final String title,
-    final String message,
-  ) =>
+    final String message, {
+    final Alignment alignment = Alignment.bottomCenter,
+    final AnimationType animation = AnimationType.fromBottom,
+  }) =>
       success == null
           ? (ElegantNotification.info(
               title: Text(title),
               description: Text(message),
               background: Theme.of(context).colorScheme.surface,
               toastDuration: Constants.successDuration * 5,
+              position: alignment,
+              animation: animation,
             )..show(context))
           : success
               ? (ElegantNotification.success(
@@ -101,12 +122,16 @@ class NotificationUtils {
                   description: Text(message),
                   background: Theme.of(context).colorScheme.surface,
                   toastDuration: Constants.successDuration,
+                  position: alignment,
+                  animation: animation,
                 )..show(context))
               : (ElegantNotification.error(
                   title: Text(title),
                   description: Text(message),
                   background: Theme.of(context).colorScheme.surface,
                   toastDuration: Constants.errorDuration,
+                  position: alignment,
+                  animation: animation,
                 )..show(context));
 
   static Future<void> confirmDialog(BuildContext context, String title,
